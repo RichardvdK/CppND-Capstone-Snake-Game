@@ -16,6 +16,9 @@ class Snake {
 
   void Update();
 
+  // Getters
+  std::pair<int, int> GetGridSize() const { return {grid_width, grid_height}; }
+
   void GrowBody();
   bool SnakeCell(int x, int y);
 

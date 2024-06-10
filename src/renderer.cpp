@@ -87,9 +87,11 @@ void Renderer::Render(Snake const snake, Eagle const eagle, SDL_Point const &foo
   }
 
   // Render the eagle texture
+  block.x = static_cast<int>(eagle.GetBodyX()) * block.w;
+  block.y = static_cast<int>(eagle.GetBodyY()) * block.h;
   SDL_RenderCopy(sdl_renderer, sdl_imageTexture, NULL, &block);
 
-  // Rendernake's head
+  // Render snake's head
   block.x = static_cast<int>(snake.head_x) * block.w;
   block.y = static_cast<int>(snake.head_y) * block.h;
   if (snake.alive) {

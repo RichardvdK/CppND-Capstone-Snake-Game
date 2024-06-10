@@ -17,7 +17,7 @@ class Game {
   int GetSize() const;
 
  private:
-  Snake snake;
+  std::shared_ptr<Snake> snake;
   Eagle eagle;
   SDL_Point food;
 
