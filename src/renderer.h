@@ -17,10 +17,10 @@ class Renderer {
   void UpdateWindowTitle(int score, int fps);
 
  private:
-  SDL_Window* sdl_window;
-  SDL_Renderer* sdl_renderer;
-  SDL_Surface* sdl_imageSurface;
-  SDL_Texture* sdl_imageTexture;
+  SDL_Window* sdl_window; // The window we'll be rendering to
+  SDL_Renderer* sdl_renderer; // The window renderer we'll be rendering to
+  SDL_Surface* sdl_imageSurface; // The image surface to be rendered
+  SDL_Texture* sdl_imageTexture; // The image texture to be rendered
 
   const std::size_t screen_width;
   const std::size_t screen_height;

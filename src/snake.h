@@ -16,7 +16,7 @@ class Snake {
 
   void Update();
 
-  // Getters
+  // Create a getter for the grid size
   std::pair<int, int> GetGridSize() const { return {grid_width, grid_height}; }
 
   void GrowBody();

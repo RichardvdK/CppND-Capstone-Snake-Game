@@ -2,12 +2,25 @@
 #include <iostream>
 #include "SDL.h"
 
+/**
+ * Changes the direction of the snake based on the user input.
+ *
+ * @param snake The snake object to change the direction of.
+ * @param input The new direction input from the user.
+ * @param opposite The opposite direction of the current snake direction.
+ */
 void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
                                  Snake::Direction opposite) const {
   if (snake.direction != opposite || snake.size == 1) snake.direction = input;
   return;
 }
 
+/**
+ * Changes the difficulty level of the given Eagle object based on the input.
+ *
+ * @param eagle The Eagle object whose difficulty level will be changed.
+ * @param input The new difficulty level to set.
+ */
 void Controller::ChangeDifficulty(Eagle &eagle, Eagle::Difficulty input) const {
   if (input < eagle.GetDifficulty()) {
     auto new_difficulty = static_cast<Eagle::Difficulty>(static_cast<int>(eagle.GetDifficulty()) - 1);
@@ -48,6 +61,7 @@ void Controller::HandleInput(bool &running, Snake &snake, Eagle &eagle) const {
                           Snake::Direction::kLeft);
           break;
 
+        // Change the difficulty level of the game using the '[' and ']' keys.
         case SDLK_LEFTBRACKET:
           ChangeDifficulty(eagle, Eagle::Difficulty::Easy);
           break;

@@ -33,7 +33,7 @@ Renderer::Renderer(const std::size_t screen_width,
     std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
   }
 
-  // Initialize SDL_image
+  // Initialize SDL_image for the eagle texture
   if (IMG_Init(IMG_INIT_PNG) == 0) {
       std::cerr << "IMG_Init Error: " << IMG_GetError() << "\n";
       std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
@@ -47,7 +47,7 @@ Renderer::Renderer(const std::size_t screen_width,
         std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
     }
 
-  // Create a texture from the surface
+  // Create a texture from the surface and free the surface afterwards to save memory
   sdl_imageTexture = SDL_CreateTextureFromSurface(sdl_renderer, sdl_imageSurface);
   SDL_FreeSurface(sdl_imageSurface);
   if (nullptr == sdl_imageTexture) {
@@ -86,7 +86,7 @@ void Renderer::Render(Snake const snake, Eagle const eagle, SDL_Point const &foo
     SDL_RenderFillRect(sdl_renderer, &block);
   }
 
-  // Render the eagle texture
+  // Render the eagle texture on the screen at the eagle's position
   block.x = static_cast<int>(eagle.body_x) * block.w;
   block.y = static_cast<int>(eagle.body_y) * block.h;
   SDL_RenderCopy(sdl_renderer, sdl_imageTexture, NULL, &block);

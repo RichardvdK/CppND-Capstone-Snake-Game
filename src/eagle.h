@@ -23,23 +23,20 @@ public:
 
   // Getters and setters
   float GetRelativeSpeed() const {return relative_speed;}
-  void SetRelativeSpeed(float speed) { relative_speed = speed;
-  }
+  void SetRelativeSpeed(const float& speed);
 
   // Change the difficulty of the game
-  void SetDifficulty(Difficulty difficulty);
+  void SetDifficulty(const Difficulty& difficulty);
   Difficulty GetDifficulty() const {return difficulty;}
-
-  SDL_Point current_cell{
-      static_cast<int>(body_x),
-      static_cast<int>(body_y)};  // Capture the body's cell after updating.
 
   float body_x;
   float body_y;
+
+  // Check if the eagle has caught the snake
   bool snake_cathed{false};
 
 private:
-    SDL_Surface* image;
+    SDL_Surface* image; // The image surface to be rendered
     std::shared_ptr<const Snake> snake;
     int grid_width;
     int grid_height;

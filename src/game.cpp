@@ -30,9 +30,9 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     frame_end = SDL_GetTicks();
 
-   // Keep track of how long each loop through the input/update/render cycle
+    // Keep track of how long each loop through the input/update/render cycle
     // takes.
-  frame_count++;
+    frame_count++;
     frame_duration = frame_end - frame_start;
 
     // After every second, update the window title.
@@ -50,6 +50,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     }
   }
 
+  // Game over message
   if (!snake->alive || eagle.snake_cathed) {
       std::cout << (snake->alive ? "Eagle caught the snake!" : "Snake is dead!")
                 << " Game Over! Score: " << score << "\n";
@@ -75,6 +76,7 @@ void Game::PlaceFood() {
 void Game::Update() {
   if (!snake->alive || eagle.snake_cathed){return;}
 
+  // Update snake and eagle position and check for collision
   snake->Update();
   eagle.Update();
 
