@@ -9,6 +9,7 @@ Renderer::Renderer(const std::size_t screen_width,
       screen_height(screen_height),
       grid_width(grid_width),
       grid_height(grid_height) {
+
   // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     std::cerr << "SDL could not initialize.\n";
@@ -31,14 +32,38 @@ Renderer::Renderer(const std::size_t screen_width,
     std::cerr << "Renderer could not be created.\n";
     std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
   }
+
+  // Initialize SDL_image
+  if (IMG_Init(IMG_INIT_PNG) == 0) {
+      std::cerr << "IMG_Init Error: " << IMG_GetError() << "\n";
+      std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
+  }
+
+  // Load the Eagle image
+  std::string imagePath = "../src/eagle_small.png";
+  sdl_imageSurface = IMG_Load(imagePath.c_str());
+    if (nullptr == sdl_imageSurface) {
+        std::cerr << "IMG_Load Error: " << IMG_GetError() << std::endl;
+        std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
+    }
+
+  // Create a texture from the surface
+  sdl_imageTexture = SDL_CreateTextureFromSurface(sdl_renderer, sdl_imageSurface);
+  SDL_FreeSurface(sdl_imageSurface);
+  if (nullptr == sdl_imageTexture) {
+      std::cerr << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
+      std::cerr << "SDL_Error: " << SDL_GetError() << "\n";
+  }
 }
 
 Renderer::~Renderer() {
+  SDL_DestroyRenderer(sdl_renderer);
+  SDL_DestroyTexture(sdl_imageTexture);
   SDL_DestroyWindow(sdl_window);
   SDL_Quit();
 }
 
-void Renderer::Render(Snake const snake, SDL_Point const &food) {
+void Renderer::Render(Snake const snake, Eagle const eagle, SDL_Point const &food) {
   SDL_Rect block;
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;
@@ -61,7 +86,10 @@ void Renderer::Render(Snake const snake, SDL_Point const &food) {
     SDL_RenderFillRect(sdl_renderer, &block);
   }
 
-  // Render snake's head
+  // Render the eagle texture
+  SDL_RenderCopy(sdl_renderer, sdl_imageTexture, NULL, &block);
+
+  // Rendernake's head
   block.x = static_cast<int>(snake.head_x) * block.w;
   block.y = static_cast<int>(snake.head_y) * block.h;
   if (snake.alive) {
