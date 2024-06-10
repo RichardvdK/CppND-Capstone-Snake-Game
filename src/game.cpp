@@ -49,6 +49,13 @@ void Game::Run(Controller const &controller, Renderer &renderer,
       SDL_Delay(target_frame_duration - frame_duration);
     }
   }
+  if (!snake->alive){
+    std::cout << "Snake is dead! Game Over! Score: " << score << "\n";
+    return;}
+  if (eagle.snake_cathed) {
+    std::cout << "Eagle catched the snake! Game Over! Score: " << score << "\n";
+    return;
+  }
 }
 
 void Game::PlaceFood() {
@@ -67,7 +74,7 @@ void Game::PlaceFood() {
 }
 
 void Game::Update() {
-  if (!snake->alive) return;
+  if (!snake->alive || eagle.snake_cathed){return;}
 
   snake->Update();
   eagle.Update();

@@ -22,14 +22,8 @@ public:
   void Update();
 
   // Getters and setters
-  float GetBodyX() const { return body_x;}
-  void SetBodyX(float x) {body_x = x;}
-  float GetBodyY() const { return body_y;}
-  void SetBodyY(float y) {body_y = y;}
   float GetRelativeSpeed() const {return relative_speed;}
-  void SetRelativeSpeed(float speed) {
-    relative_speed = speed;
-    std::cout << "Speed: " << relative_speed << "\n";
+  void SetRelativeSpeed(float speed) { relative_speed = speed;
   }
 
   // Change the difficulty of the game
@@ -40,21 +34,15 @@ public:
       static_cast<int>(body_x),
       static_cast<int>(body_y)};  // Capture the body's cell after updating.
 
+  float body_x;
+  float body_y;
+  bool snake_cathed{false};
+
 private:
     SDL_Surface* image;
     std::shared_ptr<const Snake> snake;
-    float relative_speed{snake.get()->speed / 4.0};
     int grid_width;
     int grid_height;
-    float body_x;
-    float body_y;
-    bool cathed{false};
+    float relative_speed{1};
     Difficulty difficulty{Difficulty::Medium};
-
-    void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell);
-
-
-
-
-  // Add any additional member functions or variables as needed
 };

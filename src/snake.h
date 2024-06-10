@@ -20,7 +20,7 @@ class Snake {
   std::pair<int, int> GetGridSize() const { return {grid_width, grid_height}; }
 
   void GrowBody();
-  bool SnakeCell(int x, int y);
+  bool SnakeCell(int x, int y) const;
 
   Direction direction = Direction::kUp;
 

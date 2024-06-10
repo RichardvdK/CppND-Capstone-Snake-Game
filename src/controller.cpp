@@ -9,7 +9,6 @@ void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
 }
 
 void Controller::ChangeDifficulty(Eagle &eagle, Eagle::Difficulty input) const {
-  std::cout << "Current difficulty: " << static_cast<int>(eagle.GetDifficulty()) << std::endl;
   if (input < eagle.GetDifficulty()) {
     auto new_difficulty = static_cast<Eagle::Difficulty>(static_cast<int>(eagle.GetDifficulty()) - 1);
     std::cout << " Difficutly descreased to " << static_cast<int>(new_difficulty) << std::endl;

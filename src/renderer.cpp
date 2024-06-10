@@ -87,14 +87,14 @@ void Renderer::Render(Snake const snake, Eagle const eagle, SDL_Point const &foo
   }
 
   // Render the eagle texture
-  block.x = static_cast<int>(eagle.GetBodyX()) * block.w;
-  block.y = static_cast<int>(eagle.GetBodyY()) * block.h;
+  block.x = static_cast<int>(eagle.body_x) * block.w;
+  block.y = static_cast<int>(eagle.body_y) * block.h;
   SDL_RenderCopy(sdl_renderer, sdl_imageTexture, NULL, &block);
 
   // Render snake's head
   block.x = static_cast<int>(snake.head_x) * block.w;
   block.y = static_cast<int>(snake.head_y) * block.h;
-  if (snake.alive) {
+  if (snake.alive && !eagle.snake_cathed) {
     SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x7A, 0xCC, 0xFF);
   } else {
     SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
