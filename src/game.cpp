@@ -30,9 +30,9 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     frame_end = SDL_GetTicks();
 
-    // Keep track of how long each loop through the input/update/render cycle
+   // Keep track of how long each loop through the input/update/render cycle
     // takes.
-    frame_count++;
+  frame_count++;
     frame_duration = frame_end - frame_start;
 
     // After every second, update the window title.
@@ -49,12 +49,11 @@ void Game::Run(Controller const &controller, Renderer &renderer,
       SDL_Delay(target_frame_duration - frame_duration);
     }
   }
-  if (!snake->alive){
-    std::cout << "Snake is dead! Game Over! Score: " << score << "\n";
-    return;}
-  if (eagle.snake_cathed) {
-    std::cout << "Eagle catched the snake! Game Over! Score: " << score << "\n";
-    return;
+
+  if (!snake->alive || eagle.snake_cathed) {
+      std::cout << (snake->alive ? "Eagle caught the snake!" : "Snake is dead!")
+                << " Game Over! Score: " << score << "\n";
+      return;
   }
 }
 
