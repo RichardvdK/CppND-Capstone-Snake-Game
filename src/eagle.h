@@ -7,7 +7,7 @@
 
 class Eagle {
 public:
-  enum class FlyDirection { kUp, kDown, kLeft, kRight };
+  enum class Difficulty {Easy, Medium, Hard};
 
   // Constructor
   Eagle(std::shared_ptr<const Snake> snake)
@@ -16,7 +16,7 @@ public:
         body_x(grid_width / 2),
         body_y(grid_height / 2),
         snake(snake){
-    std::cout << "Eagle constructor\n";
+        SetDifficulty(difficulty);
   }
 
   void Update();
@@ -27,7 +27,14 @@ public:
   float GetBodyY() const { return body_y;}
   void SetBodyY(float y) {body_y = y;}
   float GetRelativeSpeed() const {return relative_speed;}
-  void SetRelativeSpeed(float speed) {relative_speed = speed;}
+  void SetRelativeSpeed(float speed) {
+    relative_speed = speed;
+    std::cout << "Speed: " << relative_speed << "\n";
+  }
+
+  // Change the difficulty of the game
+  void SetDifficulty(Difficulty difficulty);
+  Difficulty GetDifficulty() const {return difficulty;}
 
   SDL_Point current_cell{
       static_cast<int>(body_x),
@@ -41,6 +48,8 @@ private:
     int grid_height;
     float body_x;
     float body_y;
+    bool cathed{false};
+    Difficulty difficulty{Difficulty::Medium};
 
     void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell);
 

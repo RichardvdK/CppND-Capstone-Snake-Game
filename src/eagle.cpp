@@ -9,12 +9,11 @@ void Eagle::Update(){
   int distanceX = snakeX - body_x;
   int distanceY = snakeY - body_y;
 
-  // Update relative speed
-  SetRelativeSpeed(snake.get()->speed / 4.0);
+  // Check the difficulty
+  // SetDifficulty(difficulty);
 
   // Move the eagle closer to the snake
-
-  std::cout << "Speed: " << GetRelativeSpeed() << "\n";
+  // std::cout << "Speed: " << GetRelativeSpeed() << "\n";
 
   if (distanceX > 0) {
     SetBodyX(body_x + GetRelativeSpeed());
@@ -28,8 +27,22 @@ void Eagle::Update(){
     SetBodyY(body_y - GetRelativeSpeed());
   }
 
-  // Capture the body's cell after updating.
-  current_cell = {
-      static_cast<int>(body_x),
-      static_cast<int>(body_y)};
+  // Wrap the Eagle around to the beginning if going off of the screen.
+  body_x = fmod(body_x + grid_width, grid_width);
+  body_y = fmod(body_y + grid_height, grid_height);
+}
+
+void Eagle::SetDifficulty(Difficulty difficulty){
+  this->difficulty = difficulty;
+  switch (difficulty) {
+    case Difficulty::Easy:
+      SetRelativeSpeed(snake.get()->speed / 4.0f);
+      break;
+    case Difficulty::Medium:
+      SetRelativeSpeed(snake.get()->speed / 2.0f);
+      break;
+    case Difficulty::Hard:
+      SetRelativeSpeed(snake.get()->speed);
+      break;
+  }
 }

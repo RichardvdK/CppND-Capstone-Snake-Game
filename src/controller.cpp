@@ -1,7 +1,6 @@
 #include "controller.h"
 #include <iostream>
 #include "SDL.h"
-#include "snake.h"
 
 void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
                                  Snake::Direction opposite) const {
@@ -9,7 +8,21 @@ void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
   return;
 }
 
-void Controller::HandleInput(bool &running, Snake &snake) const {
+void Controller::ChangeDifficulty(Eagle &eagle, Eagle::Difficulty input) const {
+  std::cout << "Current difficulty: " << static_cast<int>(eagle.GetDifficulty()) << std::endl;
+  if (input < eagle.GetDifficulty()) {
+    auto new_difficulty = static_cast<Eagle::Difficulty>(static_cast<int>(eagle.GetDifficulty()) - 1);
+    std::cout << " Difficutly descreased to " << static_cast<int>(new_difficulty) << std::endl;
+    eagle.SetDifficulty(new_difficulty);
+  }
+  else if (input > eagle.GetDifficulty()) {
+    auto new_difficulty = static_cast<Eagle::Difficulty>(static_cast<int>(eagle.GetDifficulty()) + 1);
+    std::cout << " Difficutly increased to " << static_cast<int>(new_difficulty) << std::endl;
+    eagle.SetDifficulty(new_difficulty);
+  }
+}
+
+void Controller::HandleInput(bool &running, Snake &snake, Eagle &eagle) const {
   SDL_Event e;
   while (SDL_PollEvent(&e)) {
     if (e.type == SDL_QUIT) {
@@ -34,6 +47,14 @@ void Controller::HandleInput(bool &running, Snake &snake) const {
         case SDLK_RIGHT:
           ChangeDirection(snake, Snake::Direction::kRight,
                           Snake::Direction::kLeft);
+          break;
+
+        case SDLK_LEFTBRACKET:
+          ChangeDifficulty(eagle, Eagle::Difficulty::Easy);
+          break;
+
+        case SDLK_RIGHTBRACKET:
+          ChangeDifficulty(eagle, Eagle::Difficulty::Hard);
           break;
       }
     }
