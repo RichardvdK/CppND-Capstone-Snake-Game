@@ -60,7 +60,7 @@ It is widely known that eagles eat snakes, so I added an eagle to the game that 
 Three difficulty levels are added to the game: Easy, Medium, and Hard. The difficulty level changes the relative speed of the eagle, making it easier or harder for the eagle to catch the snake. You can change the difficulty by pressing the left and right bracket keys "[" and "]". Easy = 0, Medium = 1, and Hard = 2.
 
 ## Extra food
-I added an extra option that spawns extra food every 10 seconds. You have 3 seconds to catch the extra food and obtain an additional +5 points! After that, you have to wait 7 seconds before new extra food spawns randomly and you can try again.
+I added an extra option that spawns extra green food every 10 seconds. You have 3 seconds to catch the extra food and obtain an additional +5 points! After that, you have to wait 7 seconds before new extra food spawns randomly and you can try again.
 
 # Compiling and Testing
 The program compiles and runs the same way as it is described in [Basic Build Instructions](#basic-build-instructions).
