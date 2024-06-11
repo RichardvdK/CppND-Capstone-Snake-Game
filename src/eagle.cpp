@@ -4,8 +4,8 @@
 void Eagle::Update(){
 
   // Get the x and y coordinates of the snake
-  int snakeX = snake->head_x;
-  int snakeY = snake->head_y;
+  int snakeX = snake->GetHeadX();
+  int snakeY = snake->GetHeadY();
 
   // Calculate the distance between the eagle and the snake
   int distanceX = snakeX - body_x;

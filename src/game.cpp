@@ -152,8 +152,8 @@ void Game::Update() {
   snake->Update();
   eagle.Update();
 
-  int new_x = static_cast<int>(snake->head_x);
-  int new_y = static_cast<int>(snake->head_y);
+  int new_x = static_cast<int>(snake->GetHeadX());
+  int new_y = static_cast<int>(snake->GetHeadY());
 
   // Check if there's food over here
   if (food.x == new_x && food.y == new_y) {

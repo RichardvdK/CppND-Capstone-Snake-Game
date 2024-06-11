@@ -63,7 +63,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Snake const snake, Eagle const eagle, SDL_Point const &food, SDL_Point const &extra_food) {
+void Renderer::Render(const Snake& snake, Eagle const eagle, SDL_Point const &food, SDL_Point const &extra_food) {
   SDL_Rect block;
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;
@@ -107,8 +107,8 @@ void Renderer::Render(Snake const snake, Eagle const eagle, SDL_Point const &foo
   SDL_RenderCopy(sdl_renderer, sdl_imageTexture, NULL, &block);
 
   // Render snake's head
-  block.x = static_cast<int>(snake.head_x) * block.w;
-  block.y = static_cast<int>(snake.head_y) * block.h;
+  block.x = static_cast<int>(snake.GetHeadX()) * block.w;
+  block.y = static_cast<int>(snake.GetHeadY()) * block.h;
   if (snake.alive && !eagle.snake_cathed) {
     SDL_SetRenderDrawColor(sdl_renderer, 0x00, 0x7A, 0xCC, 0xFF);
   } else {

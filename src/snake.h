@@ -22,13 +22,18 @@ class Snake {
   void GrowBody();
   bool SnakeCell(int x, int y) const;
 
+  // Getters and setters
+  float GetHeadX() const {return head_x;}
+  void SetHeadX(float x){head_x = x;}
+
+  float GetHeadY() const {return head_y;}
+  void SetHeadY(float y){head_y = y;}
+
   Direction direction = Direction::kUp;
 
   float speed{0.1f};
   int size{1};
   bool alive{true};
-  float head_x;
-  float head_y;
   std::vector<SDL_Point> body;
 
  private:
@@ -38,6 +43,8 @@ class Snake {
   bool growing{false};
   int grid_width;
   int grid_height;
+  float head_x;
+  float head_y;
 };
 
 #endif
