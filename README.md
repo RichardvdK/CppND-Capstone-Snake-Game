@@ -54,7 +54,7 @@ This program additionally uses the sdl2 image library. See [Dependencies for Run
 # New Features:
 
 ## Eagle
-It is widely known that eagles eat snakes, so I added an eagle to the game that chases the snake and tries to eat it! The eagle follows the snake, and on contact, the game terminates with the message "Eagle caught the snake!". The speed of the eagle is relative to that of the snake, and this value changes with different difficulty levels. The renderer loads a nice image of an eagle which moves across the screen to try and catch the snake.
+It is widely known that eagles eat snakes, so I added an eagle to the game that chases the snake and tries to eat it! The eagle follows the snake, and on contact, the game terminates with the message "Eagle caught the snake!". The speed of the eagle is always relative to that of the snake, and this value changes with different difficulty levels. The renderer loads a nice image of an eagle which moves across the screen to try and catch the snake.
 
 ## Difficulty levels
 Three difficulty levels are added to the game: Easy, Medium, and Hard. The difficulty level changes the relative speed of the eagle, making it easier or harder for the eagle to catch the snake. You can change the difficulty by pressing the left and right bracket keys "[" and "]". Easy = 0, Medium = 1, and Hard = 2.
@@ -71,7 +71,7 @@ The program compiles and runs the same way as it is described in [Basic Build In
 ### 2.1: The project demonstrates an understanding of C++ functions and control structures:
 The project uses numerous control structures throughout the program to control the flow of the game.
 ### 2.2: File I/O:
-The program loads an image "eagle_small.png" as an SDL_Surface and renders it to the screen.
+The program loads an image "eagle_small.png" in `renderer.cpp` as an SDL_Surface and renders it to the screen accordingly.
 
 ### 2.3: The project accepts user input and processes the input:
 The program handles additional keyboard inputs. Namely the bracket keys "[" and "]" to change the difficulty of the game.
@@ -91,7 +91,7 @@ Member functions do not change the program state in undocumented ways. Additiona
 
 ## Memory Management:
 ### 4.1: The project makes use of references in function declarations:
-References are used throughout the program to pass variables by reference.
+References are used throughout the program to pass variables by reference. For example in the Renderer::Render() method.
 
 ### 4.2: Proper Use of Destructors:
 The project uses destructors properly.
@@ -102,7 +102,7 @@ For example, the eagle class has a shared pointer to the snake and uses that to 
 ## Concurrency:
 
 ### 5.1: The project uses multithreading:
-The project uses multithreading to spawn extra food on a timer. An atomic<bool> variable is used to signal the ExtraFoodThread that the program has exited on both a SIGINT and on clicking the cross to exit the program (SDL_QUIT).
+The project uses multithreading to spawn extra food on a timer. The PlaceExtraFoodTimer() function is started on a separate thread and has a timer to create additonal food for extra points. The program waits for the thread and exits cleanly. An atomic<bool> variable is used to signal the ExtraFoodThread that the program has exited on both a SIGINT and on clicking the cross to exit the program (SDL_QUIT).
 
 ### 5.3: A mutex or lock is used in the project:
 The lock type unique_lock is used to protect variables such as extra_food and extra_food_placed.
@@ -110,3 +110,6 @@ The lock type unique_lock is used to protect variables such as extra_food and ex
 
 ### 5.4: A condition variable is used in the project:
 A condition variable is used to notify the thread that extra food has been placed.
+
+## Extra notes:
+Good luck with getting the high score! On the difficulty high, I found it extremely hard to get a score above 20, so I am curious if people get more :).
