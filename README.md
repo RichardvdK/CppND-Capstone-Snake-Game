@@ -66,7 +66,7 @@ I added an extra option that spawns extra food every 10 seconds. You have 3 seco
 The program compiles and runs the same way as it is described in [Basic Build Instructions](#basic-build-instructions).
 
 # Project Contributions Related to Rubrics
-
+I added a lot of new functionalities with all kinds of techniques. I tried to name most of them below, but for all the changes and updates, I refer you to the "diff" section of GitHub for all the changes I made.
 ## Loops, Functions, I/O:
 ### 2.1: The project demonstrates an understanding of C++ functions and control structures:
 The project uses numerous control structures throughout the program to control the flow of the game.
