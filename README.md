@@ -77,34 +77,36 @@ The program loads an image "eagle_small.png" as an SDL_Surface and renders it to
 The program handles additional keyboard inputs. Namely the bracket keys "[" and "]" to change the difficulty of the game.
 
 ### 2.4: Constructor Argument Change:
-In the renderer class, the argument of Renderer has been changed to `const Snake&` to introduce an immutable variable. Also, the eagle class uses getters and setters for its private members.
+In the renderer class, the argument of Renderer has been changed to `const Snake&` to introduce an immutable variable. Additionally, the eagle class uses getters and setters for its private members.
 
 ## Object-oriented programming:
 ### 3.1: Access Specifiers:
 The snake and eagle classes now use appropriate access specifiers for class members.
 
 ### 3.2: Class constructors utilize member initialization lists:
-The eagle class uses a member initialization lists to initializes the class.
+The eagle class uses member initialization lists to initialize the class.
 
 ### 3.3: Classes abstract implementation details from their interfaces:
-Member functions do not change the program state in undocumented ways. Also, the Snake class is reorganized.
+Member functions do not change the program state in undocumented ways. Additionally, the Snake class has been reorganized.
 
 ## Memory Management:
 ### 4.1: The project makes use of references in function declarations:
-References are used all around the program to pass variables by reference.
+References are used throughout the program to pass variables by reference.
 
 ### 4.2: Proper Use of Destructors:
 The project uses destructors properly.
 
 ### 4.6: The project uses smart pointers instead of raw pointers:
 For example, the eagle class has a shared pointer to the snake and uses that to chase the snake.
+
 ## Concurrency:
 
 ### 5.1: The project uses multithreading:
-The project uses multithreading to spawn extra food on a timer.
+The project uses multithreading to spawn extra food on a timer. An atomic<bool> variable is used to signal the ExtraFoodThread that the program has exited on both a SIGINT and on clicking the cross to exit the program (SDL_QUIT).
 
 ### 5.3: A mutex or lock is used in the project:
-Lock type unique_lock is used to protect, for example, the extra_food and extra_food_placed variables.
+The lock type unique_lock is used to protect variables such as extra_food and extra_food_placed.
+
 
 ### 5.4: A condition variable is used in the project:
-A condition variable is used to notify the thread that an extra food is placed.
+A condition variable is used to notify the thread that extra food has been placed.
