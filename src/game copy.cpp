@@ -5,7 +5,7 @@
 #include <csignal>
 #include <atomic>
 
-std::atomic<bool> keep_running(true);
+// std::atomic<bool> keep_running(true);
 
 void signal_handler(int signal) {
     if (signal == SIGINT) {
@@ -37,7 +37,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   // Setup the signal handler for SIGINT
   std::signal(SIGINT, signal_handler);
 
-  while (running && keep_running.load() ){
+  while (running) {
     frame_start = SDL_GetTicks();
 
     // Input, Update, Render - the main game loop.
@@ -74,9 +74,6 @@ void Game::Run(Controller const &controller, Renderer &renderer,
       return;
   }
 
-  std::cout << "Waiting for extra food thread to finish..." << std::endl;
-  // Signal the extra food thread to stop one more time
-  keep_running.store(false);
   ExtraFoodThread.join();
 }
 
@@ -105,6 +102,7 @@ void Game::PlaceExtraFoodTimer(){
   bool is_extra_food_time = true;
   while (keep_running.load())
   {
+    cond.wait_for(lock, std::chrono::milliseconds(1000), [] { return !keep_running.load(); });
     cond.wait(lock, [this]{return extra_food_placed;});
     auto current_Time = std::chrono::high_resolution_clock::now();
     auto elapsed_Seconds = std::chrono::duration_cast<std::chrono::seconds>(current_Time - startTime).count();
@@ -124,7 +122,7 @@ void Game::PlaceExtraFoodTimer(){
       startTime = std::chrono::high_resolution_clock::now();
     }
     // Wait for a short interval before placing extra food again
-    cond.wait_for(lock, std::chrono::milliseconds(1000));
+    cond.wait_for(lock, std::chrono::milliseconds(1000), [] { return !keep_running.load(); });
   }
 }
 

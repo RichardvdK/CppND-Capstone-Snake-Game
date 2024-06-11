@@ -63,7 +63,7 @@ Renderer::~Renderer() {
   SDL_Quit();
 }
 
-void Renderer::Render(Snake const snake, Eagle const eagle, SDL_Point const &food) {
+void Renderer::Render(Snake const snake, Eagle const eagle, SDL_Point const &food, SDL_Point const &extra_food) {
   SDL_Rect block;
   block.w = screen_width / grid_width;
   block.h = screen_height / grid_height;
@@ -77,6 +77,21 @@ void Renderer::Render(Snake const snake, Eagle const eagle, SDL_Point const &foo
   block.x = food.x * block.w;
   block.y = food.y * block.h;
   SDL_RenderFillRect(sdl_renderer, &block);
+
+  // Render extra food if it is placed
+  SDL_Rect extra_block;
+  extra_block.w = screen_width / grid_width;
+  extra_block.h = screen_height / grid_height;
+
+  // create a green extra food block
+  // std::cout << "extra_food.x: " << extra_food.x << " extra_food.y: " << extra_food.y << std::endl;
+  if (extra_food.x != -1 && extra_food.y != -1) {
+    SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0x00, 0x00, 0xFF);
+    block.x = extra_food.x * block.w;
+    block.y = extra_food.y * block.h;
+    SDL_RenderFillRect(sdl_renderer, &block);
+  }
+
 
   // Render snake's body
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
